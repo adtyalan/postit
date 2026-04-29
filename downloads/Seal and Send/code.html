@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Seal &amp; Send - Tactile Nostalgia</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&amp;family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Special+Elite&amp;family=Zeyada&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#de2312",
+              "background-light": "#f8f6f6",
+              "background-dark": "#221210",
+            },
+            fontFamily: {
+              "display": ["Newsreader", "serif"],
+              "typewriter": ["'Special Elite'", "monospace"],
+              "ui": ["'Courier Prime'", "monospace"],
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .hard-shadow {
+            box-shadow: 6px 6px 0px rgba(34, 18, 16, 0.85); /* using background-dark */
+        }
+        .stamp-edge {
+            background: radial-gradient(circle at 0 0, transparent 4px, white 5px) top left,
+                        radial-gradient(circle at 100% 0, transparent 4px, white 5px) top right,
+                        radial-gradient(circle at 100% 100%, transparent 4px, white 5px) bottom right,
+                        radial-gradient(circle at 0 100%, transparent 4px, white 5px) bottom left;
+            background-size: 50% 50%;
+            background-repeat: no-repeat;
+        }
+        .envelope-flap-top {
+            clip-path: polygon(0 0, 100% 0, 50% 100%);
+        }
+        .envelope-flap-bottom {
+            clip-path: polygon(0 100%, 50% 0, 100% 100%);
+        }
+        .envelope-flap-left {
+            clip-path: polygon(0 0, 100% 50%, 0 100%);
+        }
+        .envelope-flap-right {
+            clip-path: polygon(100% 0, 100% 100%, 0 50%);
+        }
+    </style>
+</head>
+<body class="bg-background-light font-ui text-background-dark min-h-screen flex flex-col md:flex-row overflow-hidden relative selection:bg-primary selection:text-white">
+<!-- Minimal Header (Back to Main Exception) -->
+<div class="absolute top-6 left-6 z-50">
+<button aria-label="Go back" class="flex items-center justify-center w-12 h-12 bg-white border border-gray-300 rounded-full shadow-md hover:bg-gray-50 transition-colors focus:outline-none focus:ring-2 focus:ring-primary">
+<span class="material-symbols-outlined text-background-dark">arrow_back</span>
+</button>
+</div>
+<!-- Left Screen: Envelope Canvas -->
+<main class="flex-1 flex flex-col items-center justify-center p-8 md:p-12 relative border-b md:border-b-0 md:border-r border-gray-300 shadow-[inset_-10px_0_20px_rgba(0,0,0,0.03)] bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0IiBoZWlnaHQ9IjQiPgo8cmVjdCB3aWR0aD0iNCIgaGVpZ2h0PSI0IiBmaWxsPSIjZmZmIi8+CjxwYXRoIGQ9Ik0wIDBMNCA0Wk00IDBMMCA0WiIgc3Ryb2tlPSIjZWVlIiBzdHJva2Utd2lkdGg9IjAuNSIvPgo8L3N2Zz4=')]">
+<h1 class="font-typewriter text-3xl md:text-4xl mb-12 tracking-wider text-background-dark drop-shadow-sm absolute top-12">Seal &amp; Send</h1>
+<!-- The Envelope -->
+<div class="relative w-full max-w-[500px] aspect-[5/3] bg-orange-100 hard-shadow transition-transform hover:-translate-y-1 duration-300 border border-orange-200/50">
+<!-- Envelope Flaps (CSS simulated) -->
+<div class="absolute inset-0 bg-orange-200/40 envelope-flap-left"></div>
+<div class="absolute inset-0 bg-orange-200/40 envelope-flap-right"></div>
+<div class="absolute inset-0 bg-orange-300/30 envelope-flap-bottom drop-shadow-md"></div>
+<div class="absolute inset-0 bg-orange-100 envelope-flap-top z-10 drop-shadow-xl border-b border-orange-200/50"></div>
+<!-- Stamp Drop Zone -->
+<div class="absolute top-4 right-4 w-16 h-20 border-2 border-dashed border-gray-400/50 rounded flex items-center justify-center z-20 bg-white/20 backdrop-blur-sm transition-colors hover:bg-white/40">
+<span class="material-symbols-outlined text-gray-400 text-xl">add</span>
+</div>
+<!-- Central Wax Seal Action -->
+<div class="absolute inset-0 flex items-center justify-center z-30 mt-8">
+<button class="group relative w-20 h-20 bg-primary rounded-full flex items-center justify-center shadow-lg hover:scale-105 active:scale-95 transition-transform focus:outline-none focus:ring-4 focus:ring-primary/30">
+<div class="absolute inset-1 border-2 border-dashed border-white/30 rounded-full opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="material-symbols-outlined text-white text-3xl" style="font-variation-settings: 'FILL' 1;">local_fire_department</span>
+</button>
+</div>
+<!-- Instructions -->
+<div class="absolute -bottom-16 left-0 right-0 text-center text-sm text-gray-500 font-ui tracking-wide">
+                Place a stamp, then seal to dispatch.
+            </div>
+</div>
+</main>
+<!-- Right Screen: Stamp Drawer -->
+<aside class="w-full md:w-96 bg-[#fcfbf9] flex flex-col h-[512px] md:h-screen shrink-0 relative z-10 shadow-[-5px_0_15px_rgba(0,0,0,0.05)]">
+<!-- Drawer Header -->
+<header class="px-6 py-5 border-b border-gray-200 bg-white/80 backdrop-blur sticky top-0 z-20 flex justify-between items-center">
+<h2 class="font-typewriter text-xl font-bold tracking-widest uppercase">Stamp Drawer</h2>
+<span class="material-symbols-outlined text-gray-400">inventory_2</span>
+</header>
+<!-- Drawer Content -->
+<div class="flex-1 overflow-y-auto p-6 scrollbar-hide">
+<div class="grid grid-cols-2 gap-6">
+<!-- Stamp Item 1 -->
+<div class="flex flex-col items-center gap-3 group cursor-grab active:cursor-grabbing">
+<div class="w-full aspect-[3/4] bg-white p-1.5 shadow-md group-hover:shadow-lg transition-shadow border border-gray-100 stamp-edge relative overflow-hidden">
+<img alt="Vintage postage stamp showing a classic steam locomotive in faded sepia tones" class="w-full h-full object-cover filter contrast-75 sepia-[.3]" data-alt="close-up of a vintage postage stamp featuring a detailed illustration of an antique steam train, faded sepia color palette, slightly worn edges" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB9JEhIg8i-I4eEYBBlqpGR_EWyjJ0OHvECoDA8rYSu3bJy31m4D6qfqcgoNWKRi5y0BPorONcRT-_fBreeyp8gqDsDGMc2DeJabr5HfnDdkApCjkLb4Pp2b-z1MZYnmQYXc1eZ0dG8eTbzEdOzxyI_dPkl44xJU3WHufrcZUH7m_pPmqfGs_SZ0B4abLMflrNRMo5eY09h01MXrXS77YPaXow2U0qbZVzJwDuLtWNmbvbCGGsU6K52_6a2XXgj2iNcDUpVoQGOeKry"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+</div>
+<span class="text-xs uppercase tracking-widest text-gray-500 font-typewriter">Locomotive</span>
+</div>
+<!-- Stamp Item 2 -->
+<div class="flex flex-col items-center gap-3 group cursor-grab active:cursor-grabbing">
+<div class="w-full aspect-[3/4] bg-white p-1.5 shadow-md group-hover:shadow-lg transition-shadow border border-gray-100 stamp-edge relative overflow-hidden">
+<img alt="Vintage postage stamp with a botanical illustration of a fern" class="w-full h-full object-cover filter saturate-50 hue-rotate-[20deg]" data-alt="vintage green postage stamp with delicate botanical line drawing of a fern leaf, muted olive green colors, textured paper background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDC4BXKpg1asqcw60_cwrhmQ92r-ILlkJGX5Dy0NT2d4Je243r2AwfEvkXppE3QCJpE22sUsGyTXGrdNX9lt5GBkaw_XaQttZ0skFc3AFqmQPrgn03_3nSi390eIaxDwIfe8k4EivcsgI8W68tbG5j7U95FCGhwg1qe1j3Tl46dFdzYUQUmMMroJENTfSqJObLOd31xwwO0v-HmdI6mY-1AvhiDcg_JjxVT9zLsljBYq848pS9yWojzJkF-pN2W6AF8VyYbA-qgAkMb"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+</div>
+<span class="text-xs uppercase tracking-widest text-gray-500 font-typewriter">Botanica</span>
+</div>
+<!-- Stamp Item 3 -->
+<div class="flex flex-col items-center gap-3 group cursor-grab active:cursor-grabbing">
+<div class="w-full aspect-[3/4] bg-white p-1.5 shadow-md group-hover:shadow-lg transition-shadow border border-gray-100 stamp-edge relative overflow-hidden">
+<img alt="Blue vintage postage stamp depicting a tall ship at sea" class="w-full h-full object-cover filter contrast-125 sepia-[.2] hue-rotate-[180deg]" data-alt="faded blue vintage postage stamp illustrating a classic tall sailing ship on rough seas, monochromatic navy tones, retro engraving style" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDEplSOQs9LvKj3uGkVgPcZbIa4rPiuI3sY5ISAix4rrJNWToWKkLVQ-n-ZA6PqoZtld5XXVTx8ekcXrwqFcoOAe00CP8vameFA4RoY1M9tInQaxmEs59NJf9Sn-R33tbOIBxYc_sL5R_0nK8FMzOKcu8K_yDYH1d0nJ57H_jkgLi5G4Xjw-M5gNQqHxt7-sfDtirDV39c2siy9D-FwUyIjwSYwyqrkk9EczllBeXrr3Cw3YzlGGkPSYOyi0h8LYvFK8zceFINWT5ET"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+</div>
+<span class="text-xs uppercase tracking-widest text-gray-500 font-typewriter">Voyage</span>
+</div>
+<!-- Stamp Item 4 -->
+<div class="flex flex-col items-center gap-3 group cursor-grab active:cursor-grabbing">
+<div class="w-full aspect-[3/4] bg-white p-1.5 shadow-md group-hover:shadow-lg transition-shadow border border-gray-100 stamp-edge relative overflow-hidden">
+<img alt="Red vintage postage stamp with a classic hot air balloon" class="w-full h-full object-cover filter saturate-75 sepia-[.4] hue-rotate-[-20deg]" data-alt="faded crimson red vintage postage stamp showing an ornate hot air balloon in flight, Victorian engraving style, worn paper texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA411uhExwKDRtANkrIJ0Im3eDvWtbizTg15BhkZ8jMmVv8DwDm2hO7l2K9ETCURtawAqxFGmmlLkvqOmQ0kOV47JyQ3lYJ2rxupEx5j1Jw5uGxQZmcdppsEZCeX0XxVSGvtkduEs-ckAZDzGCYXAPB7PkKpOJKKkhSqHaExzGNuc-P145HHIAL5phLQsLNoISKGsCdRswj1hGNBPPdDMLCypQJ_Q1tvMlKvGUVaS66XzZyiJnKZ5vHuAVcbLVT-lL3zkU4mLIP9ck3"/>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+</div>
+<span class="text-xs uppercase tracking-widest text-gray-500 font-typewriter">Aero</span>
+</div>
+<!-- Stamp Item 5 -->
+<div class="flex flex-col items-center gap-3 group cursor-grab active:cursor-grabbing">
+<div class="w-full aspect-[3/4] bg-white p-1.5 shadow-md group-hover:shadow-lg transition-shadow border border-gray-100 stamp-edge relative overflow-hidden">
+<div class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+<span class="material-symbols-outlined text-gray-500 text-3xl opacity-50">architecture</span>
+</div>
+<div class="absolute inset-0 bg-black/0 group-hover:bg-black/5 transition-colors"></div>
+</div>
+<span class="text-xs uppercase tracking-widest text-gray-500 font-typewriter">Monument</span>
+</div>
+<!-- Stamp Item 6 -->
+<div class="flex flex-col items-center gap-3 group cursor-grab active:cursor-grabbing">
+<div class="w-full aspect-[3/4] bg-white p-1.5 shadow-md group-hover:shadow-lg transition-shadow border border-gray-100 stamp-edge relative overflow-hidden">
+<div class="w-full h-full bg-gradient-to-tr from-[#e3d5ca] to-[#f5ebe0] flex items-center justify-center border border-dashed border-[#d5bdaf] m-1 w-[calc(100%-8px)] h-[calc(100%-8px)]">
+<span class="font-ui text-[10px] text-gray-400 rotate-[-15deg]">BLANK</span>
+</div>
+</div>
+<span class="text-xs uppercase tracking-widest text-gray-400 font-typewriter">Custom</span>
+</div>
+</div>
+</div>
+<!-- Drawer Footer Overlay -->
+<div class="absolute bottom-0 left-0 right-0 h-12 bg-gradient-to-t from-[#fcfbf9] to-transparent pointer-events-none"></div>
+</aside>
+</body></html>

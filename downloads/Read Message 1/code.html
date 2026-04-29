@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Read Message</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&amp;family=Special+Elite&amp;family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&amp;family=Zeyada&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#de2312",
+          "background-light": "#f8f6f6",
+          "background-dark": "#221210",
+          "paper-surface": "#E8DEC3",
+          "paper-canvas": "#F4EEDD",
+          "ink-black": "#2A2626",
+          "ink-muted": "#8C8273"
+        },
+        fontFamily: {
+          "display": ["Newsreader", "serif"],
+          "typewriter": ['"Special Elite"', "monospace"],
+          "ui": ['"Courier Prime"', "monospace"],
+          "hand": ['"Zeyada"', "cursive"]
+        },
+        borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem", "rough": "2px"},
+        boxShadow: {
+          "hard": "6px 6px 0px rgba(42, 38, 38, 0.85)"
+        }
+      },
+    },
+  }
+</script>
+<style>
+  body {
+    background-color: theme('colors.paper-canvas');
+    background-image: repeating-linear-gradient(45deg, rgba(140, 130, 115, 0.03) 0px, rgba(140, 130, 115, 0.03) 2px, transparent 2px, transparent 4px);
+  }
+  
+  /* Hack to simulate state for CSS-only interaction */
+  #tear-trigger:checked ~ .envelope-wrapper .tear-strip {
+    opacity: 0.2;
+    pointer-events: none;
+  }
+  
+  #tear-trigger:checked ~ .envelope-wrapper .envelope-flap-top {
+    transform: rotateX(180deg);
+    z-index: 10;
+  }
+  
+  #tear-trigger:checked ~ .envelope-wrapper .the-letter {
+    transform: translateY(-150px);
+    z-index: 20;
+    transition-delay: 0.5s;
+    cursor: pointer;
+  }
+
+  #read-trigger:checked ~ .modal-overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .envelope-flap-top {
+    transform-origin: top;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .the-letter {
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Wavy edge simulation */
+  .deckled-edge {
+    filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.1));
+  }
+</style>
+</head>
+<body class="min-h-screen flex items-center justify-center font-ui text-ink-black overflow-hidden selection:bg-primary selection:text-white relative">
+<!-- State Checkboxes -->
+<input class="hidden" id="tear-trigger" type="checkbox"/>
+<input class="hidden" id="read-trigger" type="checkbox"/>
+<!-- Main Stage -->
+<main class="relative w-full max-w-[800px] h-[600px] flex items-center justify-center perspective-1000">
+<!-- Top Bar Exception (Back Button) -->
+<header class="absolute top-4 left-4 z-50">
+<button class="flex items-center gap-2 hover:text-primary transition-colors cursor-pointer group">
+<span class="material-symbols-outlined text-2xl group-hover:-translate-x-1 transition-transform">arrow_back</span>
+<span class="font-ui text-sm uppercase tracking-widest">Return to Desk</span>
+</button>
+</header>
+<div class="envelope-wrapper relative w-[600px] h-[400px] shadow-hard rounded-rough bg-paper-surface deckled-edge z-10 transition-transform duration-500 hover:scale-[1.02]">
+<!-- Back Envelope Flap (Static background) -->
+<div class="absolute inset-0 bg-paper-surface rounded-rough border-2 border-ink-muted/20 overflow-hidden flex flex-col justify-end">
+<div class="w-full h-1/2 border-t-[1px] border-ink-muted/30 relative">
+<!-- Simulated bottom flap fold -->
+<div class="absolute inset-0 bg-black/5" style="clip-path: polygon(0 100%, 50% 0, 100% 100%);"></div>
+</div>
+</div>
+<!-- The Letter (Hidden initially) -->
+<div class="the-letter absolute inset-4 top-8 bg-paper-canvas border border-ink-muted/30 shadow-md rounded-rough p-8 z-0 flex flex-col gap-4">
+<label class="absolute inset-0 cursor-pointer w-full h-full" for="read-trigger"></label>
+<div class="w-full h-full border-b border-ink-muted/20 flex flex-col pointer-events-none">
+<p class="font-hand text-2xl text-ink-black/80 mt-4 leading-[32px] opacity-60">My dearest friend,</p>
+<p class="font-hand text-2xl text-ink-black/80 mt-8 leading-[32px] opacity-60">It has been too long since I last heard the rustle of paper between my fingers...</p>
+<p class="font-hand text-2xl text-ink-black/80 mt-auto self-end leading-[32px] opacity-60 mb-8">- A Stranger</p>
+</div>
+</div>
+<!-- Front Flaps (Left/Right) overlay -->
+<div class="absolute inset-0 pointer-events-none z-30">
+<!-- Left Flap -->
+<div class="absolute top-0 left-0 bottom-0 w-1/2 border-r border-ink-muted/20 bg-paper-surface shadow-[2px_0_4px_rgba(0,0,0,0.05)]" style="clip-path: polygon(0 0, 100% 50%, 0 100%);"></div>
+<!-- Right Flap -->
+<div class="absolute top-0 right-0 bottom-0 w-1/2 border-l border-ink-muted/20 bg-paper-surface shadow-[-2px_0_4px_rgba(0,0,0,0.05)]" style="clip-path: polygon(100% 0, 0 50%, 100% 100%);"></div>
+</div>
+<!-- Top Flap (Animated) -->
+<div class="envelope-flap-top absolute top-0 left-0 right-0 h-1/2 bg-paper-surface border-b border-ink-muted/30 z-40 origin-top shadow-[0_4px_6px_rgba(0,0,0,0.1)] flex items-end justify-center pb-4" style="clip-path: polygon(0 0, 100% 0, 50% 100%);">
+<!-- Wax Seal Decorative -->
+<div class="w-12 h-12 rounded-full bg-primary shadow-sm border-2 border-primary/80 absolute bottom-[-24px] z-50 flex items-center justify-center">
+<span class="material-symbols-outlined text-white/80 text-xl font-bold" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<!-- Tear Strip overlay -->
+<label class="tear-strip absolute top-0 left-0 right-0 h-12 border-b-2 border-dashed border-ink-muted/50 bg-paper-surface/80 hover:bg-paper-surface z-50 flex items-center justify-center cursor-ew-resize transition-colors group" for="tear-trigger">
+<div class="flex items-center gap-4 w-full px-8">
+<span class="material-symbols-outlined text-ink-muted group-hover:text-primary transition-colors text-xl">content_cut</span>
+<div class="h-px bg-ink-muted/30 flex-grow dashed"></div>
+<span class="font-ui text-sm tracking-widest text-ink-muted group-hover:text-ink-black uppercase">Tear here to open</span>
+<div class="h-px bg-ink-muted/30 flex-grow dashed"></div>
+</div>
+</label>
+<!-- Addressing (Front visual) -->
+<div class="absolute inset-0 pointer-events-none z-40 flex flex-col items-center justify-center mix-blend-multiply opacity-80" style="clip-path: polygon(0 100%, 50% 50%, 100% 100%);">
+<div class="mt-32 text-center transform -rotate-2">
+<p class="font-typewriter text-xl text-ink-black/70 tracking-widest">To: You</p>
+<p class="font-typewriter text-sm text-ink-black/50 mt-2">From: A Stranger</p>
+</div>
+</div>
+</div>
+</main>
+<!-- Full Letter Modal (triggered by clicking letter) -->
+<div class="modal-overlay fixed inset-0 bg-ink-black/80 z-[100] opacity-0 pointer-events-none transition-opacity duration-500 flex items-center justify-center p-8 backdrop-blur-sm">
+<label class="absolute inset-0 cursor-pointer" for="read-trigger"></label>
+<div class="relative w-full max-w-[600px] h-[800px] bg-paper-canvas rounded-rough shadow-hard p-12 overflow-y-auto z-[101] transform rotate-1 deckled-edge">
+<button class="absolute top-6 right-6 text-ink-muted hover:text-primary transition-colors">
+<label class="cursor-pointer" for="read-trigger">
+<span class="material-symbols-outlined text-3xl">close</span>
+</label>
+</button>
+<div class="w-full h-full flex flex-col" style="background-image: repeating-linear-gradient(transparent, transparent 31px, rgba(140, 130, 115, 0.2) 31px, rgba(140, 130, 115, 0.2) 32px); line-height: 32px;">
+<p class="font-hand text-3xl text-ink-black mt-8">My dearest friend,</p>
+<p class="font-hand text-[28px] text-ink-black mt-8 indent-8 leading-[32px]">
+                  It has been too long since I last heard the rustle of paper between my fingers. The digital world moves so fast, blurring days into a continuous scroll of glass and light. But here, in the texture of this page, time slows down.
+              </p>
+<p class="font-hand text-[28px] text-ink-black mt-8 indent-8 leading-[32px]">
+                  I hope this letter finds you well. I sealed it with the hope that the physical act of opening it brings you a momentary pause—a tiny, tactile joy in your day.
+              </p>
+<div class="mt-auto self-end flex flex-col items-center">
+<p class="font-hand text-3xl text-ink-black">Yours truly,</p>
+<p class="font-hand text-4xl text-ink-black mt-4 -rotate-3">A Stranger</p>
+</div>
+</div>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compose Message - Tactile Nostalgia</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&amp;family=Special+Elite&amp;family=Zeyada&amp;family=Newsreader:wght@400;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            "primary": "#de2312",
+            "background-light": "#f8f6f6",
+            "background-dark": "#221210",
+          },
+          fontFamily: {
+            "display": ["Newsreader"]
+          },
+          borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+        },
+      },
+    }
+  </script>
+<style>
+    .paper-texture {
+      background-image: repeating-linear-gradient(transparent, transparent 31px, rgba(140, 130, 115, 0.5) 31px, rgba(140, 130, 115, 0.5) 32px);
+      background-position: 0 40px;
+    }
+    .ink-focus:focus {
+      text-shadow: 0 0 2px rgba(34, 18, 16, 0.5);
+    }
+  </style>
+</head>
+<body>
+<div class="relative flex h-auto min-h-screen w-full flex-col bg-background-dark group/design-root overflow-x-hidden" style="font-family: 'Courier Prime', monospace;">
+<div class="layout-container flex h-full grow flex-col items-center justify-center py-12 px-4">
+<!-- Main Paper Canvas -->
+<div class="layout-content-container flex flex-col w-full max-w-[600px] min-h-[800px] bg-background-light relative paper-texture rounded-sm" style="box-shadow: 6px 6px 0px rgba(34, 18, 16, 0.85);">
+<div class="flex flex-col flex-1 px-8 py-10">
+<!-- Shared Component Structure Adapted -->
+<div class="flex flex-wrap items-end gap-4 px-4 py-2">
+<label class="flex flex-col min-w-40 flex-1">
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden bg-transparent border-none text-background-dark focus:outline-0 focus:ring-0 focus:border-transparent h-14 placeholder:text-background-dark/40 p-[15px] text-3xl font-normal leading-normal ink-focus" placeholder="To: Who is this for?" style="font-family: 'Zeyada', cursive;" value=""/>
+</label>
+</div>
+<div class="flex flex-wrap items-end gap-4 px-4 py-2">
+<label class="flex flex-col min-w-40 flex-1">
+<input class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden bg-transparent border-none text-background-dark focus:outline-0 focus:ring-0 focus:border-transparent h-14 placeholder:text-background-dark/40 p-[15px] text-3xl font-normal leading-normal ink-focus" placeholder="From: Who is this from?" style="font-family: 'Zeyada', cursive;" value=""/>
+</label>
+</div>
+<div class="flex flex-wrap items-end gap-4 px-4 py-2 flex-1 mt-4">
+<label class="flex flex-col min-w-40 flex-1 h-full">
+<textarea class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden bg-transparent border-none text-background-dark focus:outline-0 focus:ring-0 focus:border-transparent min-h-36 placeholder:text-background-dark/40 p-[15px] text-3xl font-normal ink-focus" placeholder="Write your message here..." style="font-family: 'Zeyada', cursive; line-height: 32px;"></textarea>
+</label>
+</div>
+</div>
+<!-- Floating CTA Button -->
+<div class="absolute bottom-[-20px] right-[-20px]">
+<button class="flex min-w-[84px] cursor-pointer items-center justify-center overflow-hidden h-14 px-8 bg-primary text-background-light text-lg font-bold leading-normal tracking-[0.1em] hover:-translate-y-1 transition-transform duration-200 rounded-sm" style="font-family: 'Special Elite', monospace; box-shadow: 4px 4px 0px rgba(34, 18, 16, 0.85);">
+<span class="truncate uppercase">Fold Letter</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</body></html>

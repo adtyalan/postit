@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Dead Letter Office</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&amp;family=Special+Elite&amp;family=Zeyada&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          "primary": "#B24A40",
+          "background-light": "#F4EEDD",
+          "background-dark": "#221210",
+          "surface": "#E8DEC3",
+          "text": "#2A2626",
+          "muted": "#8C8273",
+          "accent": "#6B705C"
+        },
+        fontFamily: {
+          "display": ["Special Elite", "monospace"],
+          "body": ["Courier Prime", "monospace"],
+          "hand": ["Zeyada", "cursive"]
+        },
+        borderRadius: {"DEFAULT": "2px", "lg": "4px", "xl": "6px", "full": "9999px"},
+        boxShadow: {
+          'hard': '6px 6px 0px rgba(42, 38, 38, 0.85)',
+          'hard-hover': '8px 8px 0px rgba(42, 38, 38, 0.85)'
+        }
+      },
+    },
+  }
+</script>
+<style>
+  body {
+    background-color: #F4EEDD;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
+    color: #2A2626;
+  }
+  
+  .corkboard-bg {
+    background-color: #dcb388;
+    background-image: 
+      radial-gradient(#b0885f 15%, transparent 16%),
+      radial-gradient(#9a744f 15%, transparent 16%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+    background-size: 14px 14px, 14px 14px, auto;
+    background-position: 0 0, 7px 7px, 0 0;
+  }
+
+  .envelope {
+    background-color: #E8DEC3;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .envelope::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid #8C8273;
+    pointer-events: none;
+    opacity: 0.3;
+  }
+
+  .envelope-flap {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 40%;
+    background-color: rgba(0,0,0,0.03);
+    border-bottom: 1px solid rgba(140, 130, 115, 0.2);
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+  }
+
+  .envelope:hover {
+    transform: scale(1.05) rotate(0deg) !important;
+    z-index: 10;
+  }
+
+  .postmark {
+    transition: transform 0.5s ease;
+  }
+
+  .envelope:hover .postmark {
+    transform: rotate(15deg);
+  }
+
+  /* Shared TopAppBar - strictly applied */
+</style>
+</head>
+<body class="min-h-screen flex flex-col font-body">
+<div class="relative flex h-auto min-h-screen w-full flex-col group/design-root overflow-x-hidden corkboard-bg">
+<div class="layout-container flex h-full grow flex-col">
+<div class="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
+<div class="layout-content-container flex flex-col max-w-[1200px] flex-1">
+<header class="flex items-center justify-between whitespace-nowrap border-b-2 border-solid border-muted/30 px-4 md:px-10 py-4 mb-8 bg-background-light/90 shadow-hard rounded-sm transform -rotate-1">
+<div class="flex items-center gap-4 text-text">
+<div class="size-6 text-primary">
+<svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+<path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
+</svg>
+</div>
+<h2 class="text-text text-xl md:text-2xl font-display font-bold leading-tight tracking-[-0.015em]">The Dead Letter Office</h2>
+</div>
+<div class="flex flex-1 justify-end gap-8">
+<div class="flex items-center gap-6 md:gap-9">
+<a class="text-text font-display uppercase tracking-widest text-sm hover:text-primary transition-colors" href="#">Draft a Letter</a>
+</div>
+</div>
+</header>
+<div class="flex flex-wrap justify-between gap-3 p-4 mb-6 bg-background-light/80 inline-block self-start p-4 border border-muted shadow-hard transform rotate-1">
+<div class="flex flex-col gap-3">
+<p class="text-text text-3xl md:text-4xl font-display font-black leading-tight tracking-[-0.033em]">Public Letters</p>
+<p class="text-muted font-body text-base font-normal leading-normal">A chaotic, beautiful corkboard of unsent thoughts.</p>
+</div>
+</div>
+<div class="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 p-4 space-y-6">
+<!-- Envelope 1 -->
+<a class="envelope block w-full p-6 shadow-hard cursor-pointer transform -rotate-2 break-inside-avoid relative overflow-hidden" href="#">
+<div class="envelope-flap"></div>
+<div class="absolute top-4 right-4 opacity-40 postmark text-muted">
+<svg height="60" viewbox="0 0 100 100" width="60">
+<circle cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-dasharray="4 2" stroke-width="2"></circle>
+<circle cx="50" cy="50" fill="none" r="35" stroke="currentColor" stroke-width="1"></circle>
+<text fill="currentColor" font-family="Courier Prime" font-size="12" text-anchor="middle" transform="rotate(-15 50 50)" x="50" y="55">LONDON</text>
+</svg>
+</div>
+<div class="mt-8 flex flex-col gap-2 relative z-10">
+<h2 class="text-text text-2xl font-hand leading-tight">To: The Dreamer</h2>
+<p class="text-muted text-lg font-hand leading-normal">From: Stranger</p>
+</div>
+</a>
+<!-- Envelope 2 -->
+<a class="envelope block w-full p-8 shadow-hard cursor-pointer transform rotate-3 break-inside-avoid relative overflow-hidden" href="#">
+<div class="envelope-flap"></div>
+<div class="absolute top-2 right-8 opacity-30 postmark text-text">
+<svg height="70" viewbox="0 0 100 100" width="70">
+<circle cx="50" cy="50" fill="none" r="48" stroke="currentColor" stroke-width="3"></circle>
+<path d="M20 50 H80 M50 20 V80" opacity="0.5" stroke="currentColor" stroke-width="1"></path>
+<text fill="currentColor" font-family="Courier Prime" font-size="10" text-anchor="middle" x="50" y="45">1998</text>
+</svg>
+</div>
+<div class="mt-12 flex flex-col gap-3 relative z-10">
+<h2 class="text-text text-3xl font-hand leading-tight">To: My Future Self</h2>
+<p class="text-muted text-xl font-hand leading-normal">From: Me</p>
+</div>
+</a>
+<!-- Envelope 3 -->
+<a class="envelope block w-full p-5 shadow-hard cursor-pointer transform -rotate-4 break-inside-avoid relative overflow-hidden bg-[#e0d6b8]" href="#">
+<div class="envelope-flap"></div>
+<div class="absolute bottom-4 left-4 opacity-50 postmark text-primary">
+<svg height="50" viewbox="0 0 100 100" width="50">
+<circle cx="50" cy="50" fill="none" r="40" stroke="currentColor" stroke-width="4"></circle>
+<text fill="currentColor" font-family="Special Elite" font-size="16" text-anchor="middle" x="50" y="55">VOID</text>
+</svg>
+</div>
+<div class="mt-6 ml-12 flex flex-col gap-1 relative z-10 text-right">
+<h2 class="text-text text-2xl font-hand leading-tight">To: A Lost Friend</h2>
+<p class="text-muted text-lg font-hand leading-normal">From: J.</p>
+</div>
+</a>
+<!-- Envelope 4 -->
+<a class="envelope block w-full p-7 shadow-hard cursor-pointer transform rotate-1 break-inside-avoid relative overflow-hidden" href="#">
+<div class="envelope-flap"></div>
+<div class="mt-10 flex flex-col gap-4 relative z-10 items-center text-center">
+<h2 class="text-text text-3xl font-hand leading-tight">To: The Midnight Writer</h2>
+<p class="text-muted text-xl font-hand leading-normal">From: Night Owl</p>
+</div>
+</a>
+<!-- Envelope 5 -->
+<a class="envelope block w-full p-6 shadow-hard cursor-pointer transform -rotate-1 break-inside-avoid relative overflow-hidden bg-[#ecdcd0]" href="#">
+<div class="envelope-flap"></div>
+<div class="absolute top-6 left-6 opacity-40 postmark text-text">
+<svg height="40" viewbox="0 0 200 100" width="80">
+<rect fill="none" height="80" stroke="currentColor" stroke-width="2" width="180" x="10" y="10"></rect>
+<line stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="20" x2="180" y1="30" y2="30"></line>
+<line stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="20" x2="180" y1="50" y2="50"></line>
+<line stroke="currentColor" stroke-dasharray="2 2" stroke-width="1" x1="20" x2="180" y1="70" y2="70"></line>
+</svg>
+</div>
+<div class="mt-16 flex flex-col gap-2 relative z-10">
+<h2 class="text-text text-2xl font-hand leading-tight">To: An Old Flame</h2>
+<p class="text-muted text-lg font-hand leading-normal">From: Anonymous</p>
+</div>
+</a>
+<!-- Envelope 6 -->
+<a class="envelope block w-full p-8 shadow-hard cursor-pointer transform rotate-4 break-inside-avoid relative overflow-hidden" href="#">
+<div class="envelope-flap"></div>
+<div class="absolute bottom-6 right-6 opacity-60 postmark text-muted">
+<svg height="60" viewbox="0 0 100 100" width="60">
+<circle cx="50" cy="50" fill="none" r="45" stroke="currentColor" stroke-width="1"></circle>
+<text fill="currentColor" font-family="Courier Prime" font-size="14" text-anchor="middle" transform="rotate(45 50 50)" x="50" y="55">PARIS</text>
+</svg>
+</div>
+<div class="mt-8 flex flex-col gap-2 relative z-10">
+<h2 class="text-text text-3xl font-hand leading-tight">To: The Wanderer</h2>
+<p class="text-muted text-xl font-hand leading-normal">From: The Nomad</p>
+</div>
+</a>
+<!-- Envelope 7 -->
+<a class="envelope block w-full p-5 shadow-hard cursor-pointer transform -rotate-3 break-inside-avoid relative overflow-hidden bg-[#e5dfcc]" href="#">
+<div class="envelope-flap"></div>
+<div class="mt-8 flex flex-col gap-2 relative z-10 text-center">
+<h2 class="text-text text-2xl font-hand leading-tight">To: Whoever Finds This</h2>
+<p class="text-muted text-lg font-hand leading-normal">From: A Friend</p>
+</div>
+</a>
+</div>
+<div class="flex justify-end overflow-hidden px-5 pb-10 mt-8">
+<button class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden h-14 px-5 bg-primary text-background-light font-display text-base uppercase tracking-[2px] shadow-hard hover:shadow-hard-hover transition-shadow transform rotate-1 min-w-0 gap-4 pl-4 pr-6 border-2 border-text">
+<div class="text-background-light">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">edit</span>
+</div>
+<span class="truncate">Draft a Letter</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</body></html>

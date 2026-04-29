@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-primary: #B24A40;
+  --color-background-paper: #F4EEDD;
+  --color-surface: #E8DEC3;
+  --color-text-main: #2A2626;
+  --color-muted: #8C8273;
+
+  --shadow-hard: 6px 6px 0px rgba(42, 38, 38, 0.85);
+  --shadow-hard-sm: 3px 3px 0px rgba(42, 38, 38, 0.85);
 }
 
+/* @theme inline lets Tailwind inline var() directly into utility classes
+   instead of storing in :root. This is required for next/font variables
+   which are injected on <body>, not :root. */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-special-elite);
+  --font-body: var(--font-courier-prime);
+  --font-hand: var(--font-zeyada);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Custom Utilities */
+@utility paper-texture {
+  background-image: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    rgba(140, 130, 115, 0.2) 31px,
+    rgba(140, 130, 115, 0.2) 32px
+  );
+  background-position: 0 40px;
+}
+
+@utility ink-bleed {
+  text-shadow: 0.5px 0.5px 1px rgba(42, 38, 38, 0.3);
+}
+
+@utility noise-bg {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.05;
+}
+
+@utility corkboard-bg {
+  background-color: #dcb388;
+  background-image: 
+    radial-gradient(#b0885f 15%, transparent 16%),
+    radial-gradient(#9a744f 15%, transparent 16%),
+    url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.15'/%3E%3C/svg%3E");
+  background-size: 14px 14px, 14px 14px, auto;
+  background-position: 0 0, 7px 7px, 0 0;
+}
+
+@utility envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+  background-color: rgba(0,0,0,0.03);
+  border-bottom: 1px solid rgba(140, 130, 115, 0.2);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+:root {
+  --background: #f8f6f6;
+  --foreground: #2A2626;
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

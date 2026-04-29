@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Correspondence - Read Message</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Special+Elite&amp;family=Courier+Prime:ital,wght@0,400;0,700;1,400&amp;family=Newsreader:opsz,ital,wght@6..72,0,200..800;6..72,1,200..800&amp;family=Zeyada&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .stamp-edge {
+            mask-image: radial-gradient(circle at 4px 4px, transparent 4px, black 4.5px);
+            mask-size: 8px 8px;
+            background-color: white;
+        }
+        .envelope-shadow {
+            box-shadow: 12px 12px 0px 0px rgba(41, 23, 20, 0.15);
+        }
+        .paper-texture {
+            background-image: radial-gradient(#d6c7b0 0.5px, transparent 0.5px);
+            background-size: 16px 16px;
+        }
+        .envelope-flap {
+            clip-path: polygon(0 0, 100% 0, 50% 60%);
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "outline": "#926f69",
+                        "surface-bright": "#fff8f6",
+                        "primary-fixed-dim": "#ffb4a7",
+                        "on-secondary-fixed-variant": "#881e11",
+                        "surface": "#fff8f6",
+                        "secondary-fixed-dim": "#ffb4a7",
+                        "surface-container-highest": "#fddbd5",
+                        "error-container": "#ffdad6",
+                        "on-primary-fixed": "#400100",
+                        "on-primary-fixed-variant": "#920500",
+                        "tertiary-fixed": "#d6e3ff",
+                        "surface-container-low": "#fff0ee",
+                        "outline-variant": "#e7bdb6",
+                        "surface-variant": "#fddbd5",
+                        "on-tertiary-fixed": "#001b3e",
+                        "secondary-fixed": "#ffdad4",
+                        "on-background": "#291714",
+                        "on-tertiary-fixed-variant": "#00468d",
+                        "secondary-container": "#fd735e",
+                        "on-secondary-container": "#6f0902",
+                        "inverse-primary": "#ffb4a7",
+                        "surface-container-lowest": "#ffffff",
+                        "secondary": "#a93626",
+                        "on-surface": "#291714",
+                        "surface-dim": "#f4d3cd",
+                        "primary-container": "#de2312",
+                        "inverse-on-surface": "#ffedea",
+                        "on-error-container": "#93000a",
+                        "on-primary-container": "#fff6f5",
+                        "surface-container-high": "#ffe2dd",
+                        "on-secondary-fixed": "#400100",
+                        "primary": "#b60800",
+                        "on-primary": "#ffffff",
+                        "surface-container": "#ffe9e5",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed-dim": "#aac7ff",
+                        "background": "#fff8f6",
+                        "on-tertiary": "#ffffff",
+                        "tertiary": "#0058ae",
+                        "on-error": "#ffffff",
+                        "tertiary-container": "#3171c9",
+                        "on-secondary": "#ffffff",
+                        "on-surface-variant": "#5d3f3a",
+                        "on-tertiary-container": "#f7f7ff",
+                        "surface-tint": "#bf0900",
+                        "primary-fixed": "#ffdad4",
+                        "inverse-surface": "#402b28"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "stack-tight": "0.75rem",
+                        "grid-gutter": "1.5rem",
+                        "container-padding": "2rem",
+                        "drawer-width": "384px",
+                        "element-gap": "1.5rem"
+                    },
+                    "fontFamily": {
+                        "label-stamp": ["Special Elite"],
+                        "micro-caption": ["Courier Prime"],
+                        "body-ui": ["Courier Prime"],
+                        "heading-drawer": ["Special Elite"],
+                        "display-title": ["Special Elite"]
+                    },
+                    "fontSize": {
+                        "label-stamp": ["12px", {"lineHeight": "1", "letterSpacing": "0.2em", "fontWeight": "400"}],
+                        "micro-caption": ["10px", {"lineHeight": "1", "fontWeight": "400"}],
+                        "body-ui": ["14px", {"lineHeight": "1.5", "fontWeight": "400"}],
+                        "heading-drawer": ["20px", {"lineHeight": "1.4", "letterSpacing": "0.1em", "fontWeight": "700"}],
+                        "display-title": ["30px", {"lineHeight": "1.2", "letterSpacing": "0.05em", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-surface-bright text-on-surface selection:bg-primary-container selection:text-on-primary-container overflow-hidden">
+<!-- Top Navigation -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-6 h-16 bg-stone-100 dark:bg-stone-950 font-['Newsreader'] tracking-tight docked full-width border-b-2 border-stone-800 dark:border-stone-200 shadow-[0px_4px_0px_0px_rgba(0,0,0,0.1)]">
+<div class="flex items-center gap-4">
+<button class="flex items-center gap-2 p-2 hover:bg-stone-200 transition-colors group">
+<span class="material-symbols-outlined text-primary" data-icon="arrow_back">arrow_back</span>
+<span class="font-heading-drawer text-label-stamp uppercase">Return to Desk</span>
+</button>
+</div>
+<div class="text-2xl font-black tracking-widest uppercase text-[#de2312]">Correspondence</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined p-2 hover:bg-stone-200 transition-colors cursor-pointer" data-icon="archive">archive</span>
+<span class="material-symbols-outlined p-2 hover:bg-stone-200 transition-colors cursor-pointer" data-icon="settings">settings</span>
+</div>
+</header>
+<!-- Sidebar Navigation -->
+<nav class="hidden lg:flex flex-col gap-6 pt-24 px-6 fixed left-0 top-0 h-full w-96 border-r-2 bg-stone-50 dark:bg-stone-900 font-['Newsreader'] text-sm uppercase tracking-wide border-stone-300 dark:border-stone-700 shadow-[6px_0px_0px_0px_rgba(0,0,0,0.05)]">
+<div class="flex flex-col gap-1 mb-6">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 bg-primary-container flex items-center justify-center rounded-full border-2 border-black">
+<span class="material-symbols-outlined text-white" data-icon="account_circle" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+</div>
+<div>
+<div class="font-bold text-lg text-stone-800 dark:text-stone-100">Postmaster</div>
+<div class="text-xs opacity-60">Registry No. 4402</div>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-3 p-4 bg-stone-200 dark:bg-stone-800 border-2 border-black dark:border-white shadow-[4px_4px_0px_0px_rgba(0,0,0,0.85)]">
+<span class="material-symbols-outlined text-[#de2312]" data-icon="mail">mail</span>
+<span>Inbox</span>
+</div>
+<div class="flex items-center gap-3 p-4 text-stone-600 dark:text-stone-400 opacity-80 hover:translate-x-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined" data-icon="edit_note">edit_note</span>
+<span>Drafts</span>
+</div>
+<div class="flex items-center gap-3 p-4 text-stone-600 dark:text-stone-400 opacity-80 hover:translate-x-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+<span>Sent</span>
+</div>
+<div class="flex items-center gap-3 p-4 text-stone-600 dark:text-stone-400 opacity-80 hover:translate-x-1 transition-transform cursor-pointer">
+<span class="material-symbols-outlined" data-icon="stars">stars</span>
+<span>Stamp Box</span>
+</div>
+</div>
+<button class="mt-auto mb-10 p-4 bg-primary text-on-primary font-heading-drawer text-center shadow-[4px_4px_0px_0px_rgba(0,0,0,0.85)] active:scale-95 transition-transform">
+            Compose Letter
+        </button>
+</nav>
+<!-- Main Content Canvas -->
+<main class="lg:ml-96 min-h-screen flex items-center justify-center p-8 paper-texture relative bg-[#fdfaf5]">
+<!-- Inset Depth Shadow Overlay -->
+<div class="absolute inset-0 pointer-events-none shadow-[inset_0px_0px_100px_rgba(0,0,0,0.05)]"></div>
+<!-- The Envelope Container -->
+<div class="relative group cursor-pointer active:scale-[0.98] transition-all duration-300">
+<!-- Instruction Text -->
+<div class="absolute -top-16 left-0 w-full flex flex-col items-center gap-2 animate-pulse">
+<span class="font-heading-drawer text-label-stamp uppercase tracking-[0.3em] text-outline opacity-70">Tear here to open</span>
+<div class="w-full border-t-2 border-dashed border-outline opacity-40"></div>
+</div>
+<!-- Envelope Body -->
+<div class="w-[600px] h-[400px] bg-[#fdf7ee] border-2 border-stone-300 envelope-shadow relative overflow-hidden">
+<!-- Inner Paper Lining -->
+<div class="absolute inset-2 border border-stone-200 bg-[#fffcf8]"></div>
+<!-- Envelope Flap (Closed) -->
+<div class="absolute top-0 left-0 w-full h-full z-20">
+<div class="absolute top-0 left-0 w-full h-full bg-[#f9f3e9] envelope-flap shadow-[0px_4px_10px_rgba(0,0,0,0.05)]"></div>
+</div>
+<!-- Red Wax Seal / Heart Sticker -->
+<div class="absolute top-[200px] left-1/2 -translate-x-1/2 -translate-y-1/2 z-30 flex items-center justify-center">
+<div class="w-16 h-16 bg-[#b60800] rounded-full shadow-[0px_4px_8px_rgba(0,0,0,0.3),inset_0px_-2px_4px_rgba(0,0,0,0.3)] flex items-center justify-center">
+<span class="material-symbols-outlined text-white text-3xl" data-icon="favorite" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</div>
+</div>
+<!-- Addressing Content -->
+<div class="absolute inset-0 flex flex-col items-center justify-center pt-24 z-10">
+<div class="flex flex-col items-center gap-4">
+<div class="text-center">
+<p class="font-['Zeyada'] text-4xl text-stone-700">To: You</p>
+<div class="w-32 h-[1px] bg-stone-300 mt-1 mx-auto"></div>
+</div>
+<div class="text-center mt-12 opacity-60">
+<p class="font-['Zeyada'] text-2xl text-stone-500">From: A Stranger</p>
+</div>
+</div>
+</div>
+<!-- Decorative Stamps on Front -->
+<div class="absolute top-8 right-8 flex gap-2 z-10">
+<div class="w-14 h-18 stamp-edge p-1 shadow-sm border border-stone-200 rotate-3">
+<img alt="Botanical Stamp" class="w-full h-full grayscale sepia object-cover" data-alt="vintage monochrome botanical drawing of a fern on aged paper background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHIBMVKpelEkxutCUmo9DJmVQscp3z6_ZBsnLFjJ27MggtqHHThHirOpSvZ8m9fK6rBnmTpdl4rURVarOKEk6ogVx_NRwBs00eT3rvZ8A7DhOfVHfWxFoLXHLl_qhGrsYbVQA58cftmNQegI69vvY1qaxGW1JBZQ2vdolnGWkXQh2pQt7zqqQgDqTlv4ZNs8iiGpLQNnPh1849LQLrtce_-uIg3lklb_i3t_Xr-b1mw5Fxj2ai_NMFRHsuwwbV16AqN4toN7IWkX-P"/>
+</div>
+<div class="w-12 h-16 stamp-edge p-1 shadow-sm border border-stone-200 -rotate-6 mt-4">
+<img alt="Maritime Stamp" class="w-full h-full grayscale sepia object-cover" data-alt="vintage engraved drawing of an old sailing ship on textured parchment paper" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCHo0ADRwEW4dtNmSomT-hJCezOvO__VacyeAcMIOPGH2Wf5QemSXR-6s6voRILta9o9sPtSzegkrQ3KRn4dmxLeupqZsGXUohVVO03paEr2zIG2SVsa51YRQN6ymaHahe5_rbprUASoOsnewGXnkiws-B13lBodIvd_kLN6xT4LjHdqWq9m1RGcHL2AaZavO2LVex4ZH-WJERN_CLlNOc2-fPL2_fzWriuHmB8-e-iO-Dzdws895lc-vESLClXWyB4cusLoGynkSJu"/>
+</div>
+</div>
+<!-- Postmark Overlays -->
+<div class="absolute top-20 right-20 w-24 h-24 border-2 border-primary-container/20 rounded-full flex items-center justify-center z-10 rotate-12">
+<div class="text-[8px] font-bold text-primary-container/30 text-center leading-none">
+                        CENTRAL POST<br/>OFFICE<br/>1924
+                    </div>
+</div>
+</div>
+</div>
+<!-- Float Help Icon -->
+<div class="fixed bottom-24 right-8 lg:bottom-12 flex flex-col items-end gap-4">
+<div class="bg-surface-container-high p-4 border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.85)] max-w-[200px]">
+<p class="font-micro-caption text-xs uppercase text-on-surface-variant">Click the envelope to release the seal and read your correspondence.</p>
+</div>
+<div class="w-14 h-14 bg-primary-container text-white flex items-center justify-center rounded-full border-2 border-black shadow-[4px_4px_0px_0px_rgba(0,0,0,0.85)] cursor-help hover:scale-110 transition-transform">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+</div>
+</div>
+</main>
+<!-- Bottom Navigation (Mobile) -->
+<nav class="lg:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-20 px-2 bg-stone-100 border-t-2 border-stone-800 dark:border-stone-200 shadow-[0px_-4px_0px_0px_rgba(0,0,0,0.1)] rounded-t-lg font-['Newsreader'] text-[10px] font-bold uppercase">
+<div class="flex flex-col items-center justify-center text-[#de2312] bg-white dark:bg-stone-800 border-x border-t border-black p-2">
+<span class="material-symbols-outlined" data-icon="drafts" style="font-variation-settings: 'FILL' 1;">drafts</span>
+<span>Inbox</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 p-2 hover:bg-stone-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="sell">sell</span>
+<span>Stamps</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 p-2 hover:bg-stone-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Archive</span>
+</div>
+<div class="flex flex-col items-center justify-center text-stone-500 dark:text-stone-400 p-2 hover:bg-stone-200 transition-colors">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span>Account</span>
+</div>
+</nav>
+</body></html>
