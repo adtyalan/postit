@@ -13,15 +13,15 @@ export const NavigationHeader = () => {
   ];
 
   return (
-    <div className="w-full px-6 pt-6 pb-2 z-50">
-      <header className="flex items-center justify-between whitespace-nowrap border-b-2 border-solid border-muted/30 px-4 md:px-10 py-4 bg-background-paper/90 shadow-hard rounded-sm transform -rotate-1 transition-transform hover:rotate-0 duration-500">
-        <Link href="/" className="flex items-center gap-4 text-text-main group">
-          <div className="size-6 text-primary group-hover:scale-110 transition-transform">
+    <div className="w-full px-4 pt-4 pb-2 z-50">
+      <header className="flex items-center justify-between whitespace-nowrap border-b-2 border-solid border-muted/30 px-6 md:px-10 py-2.5 bg-background-paper/90 shadow-hard rounded-sm transform -rotate-1 transition-transform hover:rotate-0 duration-500">
+        <Link href="/" className="flex items-center gap-3 text-text-main group">
+          <div className="size-5 text-primary group-hover:scale-110 transition-transform">
             <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
               <path d="M42.4379 44C42.4379 44 36.0744 33.9038 41.1692 24C46.8624 12.9336 42.2078 4 42.2078 4L7.01134 4C7.01134 4 11.6577 12.932 5.96912 23.9969C0.876273 33.9029 7.27094 44 7.27094 44L42.4379 44Z" fill="currentColor"></path>
             </svg>
           </div>
-          <h2 className="text-text-main text-xl md:text-2xl font-display font-bold leading-tight tracking-tight">The Dead Letter Office</h2>
+          <h2 className="text-text-main text-lg md:text-xl font-display font-bold leading-tight tracking-tight">The Dead Letter Office</h2>
         </Link>
 
         <div className="flex flex-1 justify-end gap-8 items-center">
