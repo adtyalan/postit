@@ -13,13 +13,15 @@ export const WaxSeal: React.FC<WaxSealProps> = ({ onSeal, isSealed = false }) =>
   return (
     <div className="relative flex flex-col items-center">
       <button
+        type="button"
         onClick={onSeal}
-        onMouseDown={() => setIsPressing(true)}
-        onMouseUp={() => setIsPressing(false)}
-        onMouseLeave={() => setIsPressing(false)}
+        onPointerDown={() => !isSealed && setIsPressing(true)}
+        onPointerUp={() => setIsPressing(false)}
+        onPointerLeave={() => setIsPressing(false)}
+        onPointerCancel={() => setIsPressing(false)}
         className={`
           relative w-24 h-24 rounded-full flex items-center justify-center
-          transition-all duration-300
+          transition-all duration-300 touch-none
           ${isSealed 
             ? "bg-primary scale-110 shadow-hard rotate-12 cursor-default" 
             : "bg-primary/90 hover:bg-primary scale-100 shadow-hard-sm hover:scale-105 cursor-pointer"}
@@ -29,7 +31,7 @@ export const WaxSeal: React.FC<WaxSealProps> = ({ onSeal, isSealed = false }) =>
         {/* Seal Texture (SVG for the emblem) */}
         <div className="absolute inset-2 border-2 border-background-paper/20 rounded-full" />
         
-        <div className="relative z-10 text-background-paper">
+        <div className="relative z-10 text-background-paper select-none">
           {isSealed ? (
             <div className="flex flex-col items-center">
               <span className="font-display text-[10px] leading-tight uppercase font-bold tracking-tighter">Sealed</span>

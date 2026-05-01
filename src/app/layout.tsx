@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Special_Elite, Courier_Prime, Zeyada, Newsreader } from "next/font/google";
 import "./globals.css";
+import { Footer } from "@/components/Footer";
 
 const specialElite = Special_Elite({
   weight: "400",
@@ -40,7 +41,10 @@ export default function RootLayout({
       <body
         className={`${specialElite.variable} ${courierPrime.variable} ${zeyada.variable} ${newsreader.variable} min-h-full flex flex-col font-body`}
       >
-        {children}
+        <div className="flex-1 flex flex-col">
+          {children}
+        </div>
+        <Footer />
       </body>
     </html>
   );

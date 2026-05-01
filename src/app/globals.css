@@ -6,6 +6,7 @@
   --color-surface: #E8DEC3;
   --color-text-main: #2A2626;
   --color-muted: #8C8273;
+  --color-primary-fixed-dim: #FFB4A7;
 
   --shadow-hard: 6px 6px 0px rgba(42, 38, 38, 0.85);
   --shadow-hard-sm: 3px 3px 0px rgba(42, 38, 38, 0.85);
@@ -62,7 +63,7 @@
 }
 
 :root {
-  --background: #f8f6f6;
+  --background: #170A08;
   --foreground: #2A2626;
 }
 
