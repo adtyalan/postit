@@ -21,9 +21,9 @@ export const EnvelopeCard: React.FC<EnvelopeCardProps> = ({
     <Link 
       href={`/read/${id}`} 
       className={`
-        block w-full ${padding} shadow-hard cursor-pointer transition-all duration-300 
-        hover:scale-105 hover:rotate-0 hover:z-10 break-inside-avoid relative overflow-hidden
-        ${bgColor} ${rotation} group
+        block w-full ${padding} drop-shadow-hard cursor-pointer transition-all duration-300 
+        hover:scale-105 hover:rotate-0 hover:z-10 break-inside-avoid relative
+        ${bgColor} ${rotation} group stamp-border
       `}
     >
       <div className="envelope-flap" />

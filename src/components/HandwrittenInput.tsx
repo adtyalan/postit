@@ -27,7 +27,7 @@ export const HandwrittenInput: React.FC<HandwrittenInputProps> = ({
           w-full bg-transparent border-none text-text-main 
           focus:outline-none focus:ring-0
           placeholder:text-text-main/20
-          font-hand text-2xl md:text-3xl leading-[1.3] md:leading-[1.4] ink-bleed
+          font-hand text-xl md:text-3xl leading-[1.3] md:leading-[1.4] ink-bleed
           px-4 py-2
           ${isTextArea ? "resize-none overflow-y-auto custom-scrollbar flex-1 min-h-0" : "h-14"}
           ${className}

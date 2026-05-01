@@ -62,6 +62,21 @@
   clip-path: polygon(0 0, 100% 0, 50% 100%);
 }
 
+@utility stamp-border {
+  --mask-pattern: radial-gradient(8px at 0 0, #0000 98%, #000) 0 0 / 16px 16px round;
+  --mask-fill: linear-gradient(#000 0 0) 8px 8px / calc(100% - 16px) calc(100% - 16px) no-repeat;
+  
+  -webkit-mask: var(--mask-pattern), var(--mask-fill);
+  -webkit-mask-composite: source-over;
+  
+  mask: var(--mask-pattern), var(--mask-fill);
+  mask-composite: add;
+}
+
+@utility drop-shadow-hard {
+  filter: drop-shadow(6px 6px 0px rgba(42, 38, 38, 0.85));
+}
+
 :root {
   --background: #170A08;
   --foreground: #2A2626;
