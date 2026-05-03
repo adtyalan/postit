@@ -6,14 +6,20 @@ import { NavigationHeader } from "@/components/NavigationHeader";
 import { EnvelopeCard } from "@/components/EnvelopeCard";
 import { motion, AnimatePresence } from "framer-motion";
 
+import { LoadingUI } from "@/components/LoadingUI";
+
 export default function ArchivePage() {
   const [archivedLetters, setArchivedLetters] = useState<any[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const saved = JSON.parse(localStorage.getItem("postit_archive") || "[]");
-    setArchivedLetters(saved);
-    setIsLoaded(true);
+    // Simulate short delay for tactile feel and loading visualization
+    const timer = setTimeout(() => {
+      setArchivedLetters(saved);
+      setIsLoaded(true);
+    }, 400);
+    return () => clearTimeout(timer);
   }, []);
 
   const removeLetter = (id: string) => {
@@ -23,8 +29,12 @@ export default function ArchivePage() {
   };
 
   return (
-    <main className="relative min-h-screen w-full flex flex-col corkboard-bg font-body overflow-x-hidden">
+    <main className="relative min-h-screen w-full flex flex-col corkboard-bg font-body overflow-x-clip pt-28">
       <NavigationHeader />
+      
+      <AnimatePresence>
+        {!isLoaded && <LoadingUI />}
+      </AnimatePresence>
 
       <div className="layout-container flex h-full grow flex-col">
         <div className="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">

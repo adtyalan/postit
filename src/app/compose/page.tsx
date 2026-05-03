@@ -2,12 +2,16 @@
 
 import React, { useState } from "react";
 import { HandwrittenInput } from "@/components/HandwrittenInput";
-import Link from "next/link";
+import { BackButton } from "@/components/BackButton";
+import { LetterSheet } from "@/components/LetterSheet";
+import { useDraft } from "@/hooks/useDraft";
 
 export default function ComposePage() {
   const [to, setTo] = useState("");
   const [from, setFrom] = useState("");
   const [message, setMessage] = useState("");
+
+  const { saveDraft } = useDraft();
 
   return (
     <main className="relative min-h-[100svh] w-full bg-[#170A08] flex flex-col items-center py-6 md:py-12 px-6 overflow-hidden">
@@ -15,17 +19,14 @@ export default function ComposePage() {
       <div className="absolute top-10 left-10 w-64 h-64 border-4 border-background-paper/10 rounded-full -rotate-12 pointer-events-none" />
       <div className="absolute bottom-20 right-10 w-96 h-96 border-4 border-background-paper/10 rounded-full rotate-45 pointer-events-none" />
       
-      <Link href="/" className="z-50 self-start mb-6 md:absolute md:top-12 md:left-12 font-body text-muted/60 hover:text-primary transition-colors uppercase text-[10px] tracking-[0.3em] flex items-center group">
-        <div className="w-8 h-8 rounded-full bg-background-paper/5 flex items-center justify-center mr-2 md:bg-transparent md:w-auto md:h-auto md:mr-2 group-hover:bg-primary/10 transition-colors">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-3.5 h-3.5">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-          </svg>
-        </div>
-        <span className="md:block">Back to Desk</span>
-      </Link>
+      <div className="z-50 self-start mb-6 md:absolute md:top-12 md:left-12">
+        <BackButton href="/" label="Back to Desk" variant="secondary" />
+      </div>
 
       {/* Main Letter Sheet */}
-      <div className="relative w-full max-w-[700px] flex-1 min-h-0 bg-background-paper paper-texture shadow-hard rounded-sm flex flex-col pt-6 px-6 pb-20 md:pt-12 md:px-12 md:pb-24 z-10 transition-transform hover:rotate-[0.5deg]">
+      <LetterSheet 
+        className="flex-1 min-h-0 flex flex-col pt-6 px-6 pb-20 md:pt-12 md:px-12 md:pb-24 transition-transform hover:rotate-[0.5deg]"
+      >
         
         {/* Header Section */}
         <div className="flex flex-col gap-4 md:gap-6 mb-6 md:mb-10">
@@ -64,14 +65,26 @@ export default function ComposePage() {
 
         {/* Floating CTA Button */}
         <div className="absolute -bottom-4 -right-2 md:-bottom-8 md:-right-8">
-          <Link href="/seal">
-            <button className="flex min-w-[120px] md:min-w-[140px] cursor-pointer items-center justify-center h-14 md:h-16 px-6 md:px-10 bg-[#DE2312] text-background-paper text-lg md:text-xl font-display uppercase tracking-widest hover:-translate-y-2 active:translate-y-0 transition-all duration-200 shadow-hard rounded-sm group">
-              <span>Fold Letter</span>
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 ml-2 md:ml-3 group-hover:translate-x-1 transition-transform">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </button>
-          </Link>
+          <button 
+            onClick={() => {
+              if (message.trim()) {
+                saveDraft({
+                  to,
+                  from,
+                  message,
+                  paperStyle: "classic",
+                  fontFamily: "font-hand",
+                });
+                window.location.href = "/seal";
+              }
+            }}
+            className="flex min-w-[120px] md:min-w-[140px] cursor-pointer items-center justify-center h-14 md:h-16 px-6 md:px-10 bg-[#DE2312] text-background-paper text-lg md:text-xl font-display uppercase tracking-widest hover:-translate-y-2 active:translate-y-0 transition-all duration-200 shadow-hard rounded-sm group"
+          >
+            <span>Fold Letter</span>
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2.5} stroke="currentColor" className="w-5 h-5 ml-2 md:ml-3 group-hover:translate-x-1 transition-transform">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
+          </button>
         </div>
 
         {/* Decorative Watermark */}
@@ -80,7 +93,8 @@ export default function ComposePage() {
             Registered <br /> Dispatch <br /> 1924
           </div>
         </div>
-      </div>
+      </LetterSheet>
+
 
 
 
