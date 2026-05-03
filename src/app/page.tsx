@@ -8,10 +8,8 @@ import { NavigationHeader } from "@/components/NavigationHeader";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen w-full flex flex-col corkboard-bg font-body overflow-x-hidden">
-      <div className="absolute top-0 left-0 w-full z-50">
-        <NavigationHeader />
-      </div>
+    <main className="relative min-h-screen w-full flex flex-col corkboard-bg font-body overflow-x-clip">
+      <NavigationHeader />
       
       <div className="w-full flex flex-col items-center">
         {/* Hero Section */}

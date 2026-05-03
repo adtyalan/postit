@@ -4,34 +4,53 @@ import React, { useState } from "react";
 import { NavigationHeader } from "@/components/NavigationHeader";
 import { EnvelopeCard } from "@/components/EnvelopeCard";
 import { motion, AnimatePresence } from "framer-motion";
+import { LoadingUI } from "@/components/LoadingUI";
+import { ErrorUI } from "@/components/ErrorUI";
+
+import useSWR from "swr";
+
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 export default function BrowsePage() {
   const [searchQuery, setSearchQuery] = useState("");
+  const { data: letters, error, isLoading } = useSWR("/api/letters", fetcher);
 
-  const letters = [
-    { id: "1", to: "The Dreamer", from: "Stranger", rotation: "-rotate-2" },
-    { id: "2", to: "My Future Self", from: "Me", rotation: "rotate-3", padding: "p-8" },
-    { id: "3", to: "A Lost Friend", from: "J.", rotation: "-rotate-4", bgColor: "bg-[#e0d6b8]", padding: "p-5", textAlign: "right" as const },
-    { id: "4", to: "The Midnight Writer", from: "Night Owl", rotation: "rotate-1", padding: "p-7", textAlign: "center" as const },
-    { id: "5", to: "An Old Flame", from: "Anonymous", rotation: "-rotate-1", bgColor: "bg-[#ecdcd0]" },
-    { id: "6", to: "The Wanderer", from: "The Nomad", rotation: "rotate-4", padding: "p-8" },
-    { id: "7", to: "Whoever Finds This", from: "A Friend", rotation: "-rotate-3", bgColor: "bg-[#e5dfcc]", padding: "p-5", textAlign: "center" as const },
-  ];
+  const filteredLetters = letters?.filter((letter: any) => 
+    (letter.recipient?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || 
+    (letter.sender?.toLowerCase() || "").includes(searchQuery.toLowerCase())
+  ) || [];
 
-  const filteredLetters = letters.filter(letter => 
-    letter.to.toLowerCase().includes(searchQuery.toLowerCase()) || 
-    letter.from.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // Helper for random rotation/styles for tactile feel
+  const getRandomStyle = (id: string) => {
+    const hash = id.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+    // More varied rotations for a more "scattered" look
+    const rotations = [
+      "rotate-1", "-rotate-1", "rotate-2", "-rotate-2", 
+      "rotate-3", "-rotate-3", "rotate-4", "-rotate-4",
+      "rotate-6", "-rotate-6"
+    ];
+    const colors = ["bg-background-paper", "bg-[#e8e2d5]", "bg-[#f2ede4]", "bg-[#e5dfcc]"];
+    
+    return {
+      rotation: rotations[hash % rotations.length],
+      bgColor: colors[hash % colors.length]
+    };
+  };
+
+  if (error) return <ErrorUI reset={() => window.location.reload()} />;
 
   return (
-    <main className="relative min-h-screen w-full flex flex-col corkboard-bg font-body overflow-x-hidden">
+    <main className="relative min-h-screen w-full flex flex-col corkboard-bg font-body overflow-x-clip pt-28">
       <NavigationHeader />
+      
+      <AnimatePresence>
+        {isLoading && <LoadingUI />}
+      </AnimatePresence>
 
       <div className="layout-container flex h-full grow flex-col">
         <div className="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
           <div className="layout-content-container flex flex-col max-w-[1200px] flex-1">
             
-            {/* Header Area with Title & Search */}
             {/* Header Area with Title & Search */}
             <div className="flex flex-col items-center gap-8 mb-8">
               {/* Wide Title Card */}
@@ -73,29 +92,37 @@ export default function BrowsePage() {
                   )}
                 </div>
                 <div className="mt-2 flex justify-between">
-                  {filteredLetters.length !== letters.length && (
+                  {filteredLetters.length !== (letters?.length || 0) && (
                     <span className="font-display text-[10px] uppercase tracking-[0.3em] text-primary italic">Found {filteredLetters.length} letters</span>
                   )}
                 </div>
               </motion.div>
             </div>
 
-            {/* Envelopes Grid */}
+            {/* Envelopes Grid - Optimized without heavy layout prop */}
             {filteredLetters.length > 0 ? (
-              <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 p-4 space-y-6 min-h-[400px]">
-                <AnimatePresence>
-                  {filteredLetters.map((letter) => (
-                    <motion.div
-                      key={letter.id}
-                      layout
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      exit={{ opacity: 0, scale: 0.8 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <EnvelopeCard {...letter} />
-                    </motion.div>
-                  ))}
+              <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 p-4 space-y-6 min-h-[400px] transform-gpu">
+                <AnimatePresence mode="popLayout">
+                  {filteredLetters.map((letter: any) => {
+                    const style = getRandomStyle(letter.id.toString());
+                    return (
+                      <motion.div
+                        key={letter.id}
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                      >
+                        <EnvelopeCard 
+                          id={letter.id.toString()}
+                          to={letter.recipient || "Anonymous"}
+                          from={letter.sender || "Unknown"}
+                          rotation={style.rotation}
+                          bgColor={style.bgColor}
+                        />
+                      </motion.div>
+                    );
+                  })}
                 </AnimatePresence>
               </div>
             ) : (
