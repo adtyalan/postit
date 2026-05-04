@@ -1,6 +1,7 @@
 import { db } from "@/db";
 import { letters } from "@/db/schema";
 import { NextResponse } from "next/server";
+import { eq } from "drizzle-orm";
 
 export async function POST(req: Request) {
   try {
@@ -32,7 +33,7 @@ export async function GET() {
   try {
     const publicLetters = await db.select()
       .from(letters)
-      .where(letters.isPublic)
+      .where(eq(letters.isPublic, true))
       .orderBy(letters.createdAt);
 
     return NextResponse.json(publicLetters);
