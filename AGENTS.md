@@ -15,3 +15,7 @@ Versi ini memiliki perubahan besar — API, konvensi, dan struktur file mungkin 
 - Gunakan **Framer Motion** untuk memberikan kesan taktil, premium, dan hidup pada aplikasi.
 - Gunakan `AnimatePresence` untuk animasi masuk/keluar elemen (entry/exit animations).
 - Fokus pada mikro-interaksi seperti hover, tap, dan transisi halaman yang halus untuk meningkatkan User Experience.
+
+## 🛡️ Prosedur Modifikasi Komponen & Shared Code
+- Sebelum memodifikasi suatu komponen atau *shared code*, **selalu lakukan pengecekan menyeluruh**. Pertimbangkan efek samping dan perubahan tidak diinginkan yang mungkin terjadi di tempat lain yang menggunakan kode tersebut.
+- **Wajib mengonfirmasi ke user terlebih dahulu** mengenai dampak perubahan tersebut sebelum benar-benar mengimplementasikannya.

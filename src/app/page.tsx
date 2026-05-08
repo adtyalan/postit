@@ -5,6 +5,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { NavigationHeader } from "@/components/NavigationHeader";
 
+import { ShowcaseCarousel } from "@/components/ShowcaseCarousel";
+
 
 export default function Home() {
   return (
@@ -75,60 +77,20 @@ export default function Home() {
         </section>
 
         {/* Showcase Section */}
-        <section className="w-full bg-[#1A0F0D]/40 py-24 md:py-32 flex flex-col items-center relative overflow-hidden">
+        <section className="w-full h-svh bg-[#1A0F0D]/40 flex flex-col items-center justify-center relative overflow-hidden px-4 pt-[15vh] pb-[5vh]">
           {/* Decorative Elements */}
           <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-muted/20 to-transparent" />
           <div className="absolute bottom-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-muted/20 to-transparent" />
           
-          <div className="relative z-10 w-full max-w-4xl px-6">
-            <div className="text-center mb-16">
-              <span className="font-display text-xs text-primary-fixed-dim uppercase tracking-[0.4em] mb-4 block drop-shadow-sm">Featured Correspondence</span>
-              <h2 className="text-3xl md:text-4xl font-display text-background-paper drop-shadow-md">A Message from the Void</h2>
+          <div className="relative z-10 w-full max-w-5xl h-full flex flex-col items-center justify-between min-h-0">
+            <div className="text-center shrink-0">
+              <span className="font-display text-[min(1.4vh,0.75rem)] text-primary-fixed-dim uppercase tracking-[0.4em] mb-1 block drop-shadow-sm">Featured Correspondence</span>
+              <h2 className="text-[min(4vh,2.5rem)] font-display text-background-paper drop-shadow-md italic leading-tight">Surat dari Kehampaan</h2>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, rotate: 2, scale: 0.9 }}
-              whileInView={{ opacity: 1, rotate: -1.5, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="relative mx-auto w-full max-w-[500px] aspect-[3/4] bg-background-paper p-6 md:p-12 flex flex-col drop-shadow-hard stamp-border"
-            >
-              {/* Paper Texture */}
-              <div className="absolute inset-0 pointer-events-none noise-bg opacity-[0.05]" />
-              <div className="absolute inset-0 pointer-events-none paper-texture opacity-10" />
-              
-              <div className="relative z-10 flex flex-col h-full">
-                <div className="flex justify-between items-start mb-8 md:mb-12">
-                  <div className="space-y-1">
-                    <p className="font-display text-[10px] text-muted uppercase tracking-widest">Date:</p>
-                    <p className="font-typewriter text-xs md:text-sm text-text-main">October 14, 1924</p>
-                  </div>
-                  <div className="w-14 h-18 md:w-16 md:h-20 border border-muted/30 flex items-center justify-center p-1 grayscale opacity-60">
-                    <img 
-                      src="/stamps/locomotive.png" 
-                      alt="Vintage Locomotive Stamp" 
-                      className="w-full h-full object-cover"
-                      onError={(e) => {
-                        (e.target as HTMLImageElement).src = "https://placehold.co/64x80/E8DEC3/8C8273?text=STAMP";
-                      }}
-                    />
-                  </div>
-                </div>
-
-                <div className="flex-1 flex flex-col space-y-4 md:space-y-6 overflow-hidden">
-                  <h3 className="font-hand text-2xl md:text-3xl text-text-main leading-none">Dearest Stranger,</h3>
-                  <p className="font-newsreader text-base md:text-xl text-text-main/90 leading-relaxed italic ink-bleed">
-                    "I am writing this to a version of you that doesn't exist yet. The coffee is cold, and the rain is tapping against the glass like a rhythmic ghost. I hope wherever you are, the sun is warmer than it is here."
-                  </p>
-                </div>
-
-                <div className="mt-8 md:mt-12 pt-6 md:pt-8 border-t border-muted/10">
-                  <p className="font-hand text-xl md:text-2xl text-text-main">— Anonymous</p>
-                </div>
-              </div>
-              
-              {/* Decorative coffee stain or something could go here if I had an image */}
-            </motion.div>
+            <div className="w-full flex-1 flex flex-col items-center justify-center min-h-0 overflow-hidden py-[2vh]">
+              <ShowcaseCarousel />
+            </div>
           </div>
 
           {/* Background Decorative Text */}

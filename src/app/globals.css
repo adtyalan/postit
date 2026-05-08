@@ -73,6 +73,17 @@
   mask-composite: add;
 }
 
+@utility stamp-border-tl {
+  --mask-pattern: radial-gradient(8px at 0 0, #0000 98%, #000) 0 0 / 16px 16px round;
+  --mask-fill: linear-gradient(#000 0 0) 8px 8px / 100% 100% no-repeat;
+  
+  -webkit-mask: var(--mask-pattern), var(--mask-fill);
+  -webkit-mask-composite: source-over;
+  
+  mask: var(--mask-pattern), var(--mask-fill);
+  mask-composite: add;
+}
+
 @utility drop-shadow-hard {
   filter: drop-shadow(6px 6px 0px rgba(42, 38, 38, 0.85));
 }

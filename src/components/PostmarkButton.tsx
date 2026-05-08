@@ -21,8 +21,16 @@ export const PostmarkButton = ({
   icon,
   className = "",
 }: PostmarkButtonProps) => {
-  // Generate a random rotation once to keep it consistent for this instance
-  const rotation = useMemo(() => Math.random() * 4 - 2, []);
+  const [mounted, setMounted] = React.useState(false);
+  
+  React.useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const rotation = useMemo(() => {
+    if (!mounted) return 0;
+    return Math.random() * 4 - 2;
+  }, [mounted]);
 
   const baseStyles = `
     relative group flex items-center justify-center gap-2 px-6 py-2 

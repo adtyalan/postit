@@ -7,6 +7,7 @@ interface LetterSheetProps {
   animate?: any;
   initial?: any;
   layout?: boolean;
+  useStampBorder?: boolean;
 }
 
 export const LetterSheet = ({ 
@@ -14,16 +15,17 @@ export const LetterSheet = ({
   className = "", 
   animate, 
   initial,
-  layout = false
+  layout = false,
+  useStampBorder = false
 }: LetterSheetProps) => {
   return (
     <motion.div 
       layout={layout}
       initial={initial}
       animate={animate}
-      className={`relative w-full bg-background-paper paper-texture shadow-hard rounded-sm z-10 ${className}`}
+      className={`relative w-full bg-background-paper paper-texture shadow-hard rounded-sm z-10 ${useStampBorder ? 'stamp-border-tl' : ''} ${className}`}
     >
-      <div className={`relative p-8 md:p-16 lg:p-20`}>
+      <div className={`relative p-6 md:p-12 lg:p-16`}>
         {children}
       </div>
 

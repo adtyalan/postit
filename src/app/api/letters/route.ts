@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { letters } from "@/db/schema";
 import { NextResponse } from "next/server";
-import { eq } from "drizzle-orm";
+import { eq, desc } from "drizzle-orm";
 
 export async function POST(req: Request) {
   try {
@@ -29,16 +29,18 @@ export async function POST(req: Request) {
   }
 }
 
-export async function GET() {
+export async function GET(request: Request) {
+  console.log("GET /api/letters called");
   try {
     const publicLetters = await db.select()
       .from(letters)
       .where(eq(letters.isPublic, true))
-      .orderBy(letters.createdAt);
+      .orderBy(desc(letters.createdAt));
 
+    console.log(`Fetched ${publicLetters.length} public letters`);
     return NextResponse.json(publicLetters);
   } catch (error) {
-    console.error("Database error:", error);
+    console.error("Database error in GET /api/letters:", error);
     return NextResponse.json({ error: "Failed to fetch letters" }, { status: 500 });
   }
 }

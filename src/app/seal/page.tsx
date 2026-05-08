@@ -99,12 +99,7 @@ export default function SealPage() {
           <motion.div 
             layout
             initial={false}
-            animate={{ 
-              y: isSealed ? -10 : 0,
-              scale: isSealed ? 0.8 : 1,
-            }}
-            transition={{ type: "spring", stiffness: 180, damping: 25 }}
-            className="relative w-full max-w-[min(450px,80vw)] max-h-full aspect-[4/3] bg-background-paper shadow-hard rounded-sm flex flex-col items-center justify-center shrink-0 z-20"
+            className="relative w-full max-w-[min(380px,80vw)] max-h-full aspect-[3/4] bg-background-paper shadow-hard rounded-sm flex flex-col items-center justify-center shrink-0 z-20"
           >
             {/* Stamp Slot */}
             <div 
@@ -144,7 +139,7 @@ export default function SealPage() {
 
             {/* Envelope Visuals */}
             <motion.div 
-              className="absolute top-0 inset-x-0 h-[40%] bg-surface/50 origin-top z-0"
+              className="absolute top-0 inset-x-0 h-[50%] bg-surface/50 origin-top z-0"
               animate={{ zIndex: isSealed ? 20 : 0 }}
               style={{
                 clipPath: isSealed 
@@ -154,9 +149,9 @@ export default function SealPage() {
             />
 
             <div className="absolute inset-0 z-10 pointer-events-none">
-              <div className="absolute inset-0 bg-surface/30" style={{ clipPath: "polygon(0 100%, 100% 100%, 50% 50%)" }} />
-              <div className="absolute inset-y-0 left-0 w-1/2 bg-surface/20" style={{ clipPath: "polygon(0 0, 0 100%, 100% 50%)" }} />
-              <div className="absolute inset-y-0 right-0 w-1/2 bg-surface/20" style={{ clipPath: "polygon(100% 0, 100% 100%, 0 50%)" }} />
+              <div className="absolute inset-0 bg-surface/30" style={{ clipPath: "polygon(0 100%, 100% 100%, 50% 60%)" }} />
+              <div className="absolute inset-y-0 left-0 w-full bg-surface/20" style={{ clipPath: "polygon(0 0, 0 100%, 50% 60%)" }} />
+              <div className="absolute inset-y-0 right-0 w-full bg-surface/20" style={{ clipPath: "polygon(100% 0, 100% 100%, 50% 60%)" }} />
             </div>
 
             <div className="relative z-30 scale-90 md:scale-100">

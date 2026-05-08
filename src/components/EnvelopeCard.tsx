@@ -10,13 +10,14 @@ interface EnvelopeCardProps {
   from: string;
   rotation: string;
   bgColor?: string;
+  stampId?: string;
   postmark?: React.ReactNode;
   textAlign?: "left" | "center" | "right";
   padding?: string;
 }
 
 export const EnvelopeCard: React.FC<EnvelopeCardProps> = ({ 
-  id, to, from, rotation, bgColor = "bg-surface", postmark, textAlign = "left", padding = "p-6" 
+  id, to, from, rotation, bgColor = "bg-surface", stampId, postmark, textAlign = "left", padding = "p-6" 
 }) => {
   // Fix parsing logic for tailwind rotation classes
   const rotationDegrees = rotation.startsWith("-") 
@@ -38,22 +39,37 @@ export const EnvelopeCard: React.FC<EnvelopeCardProps> = ({
       <Link 
         href={`/read/${id}`} 
         className={`
-          block w-full ${padding} cursor-pointer transition-shadow duration-300 
-          ${bgColor} stamp-border group relative overflow-hidden
-          shadow-md hover:shadow-2xl
+          block w-full aspect-[1.8/1] ${padding} cursor-pointer transition-shadow duration-300 
+          ${bgColor} group relative overflow-hidden
+          shadow-md hover:shadow-2xl border border-text-main/10 rounded-sm
         `}
       >
         <div className="envelope-flap" />
         
+        {/* The Stamp */}
+        {stampId && (
+          <div className="absolute top-2 right-2 w-10 h-12 pointer-events-none z-20">
+            <div className="relative w-full h-full opacity-80 sepia-[0.3] rotate-3">
+              <img 
+                src={`/stamps/${stampId}.png`} 
+                alt="Postage Stamp" 
+                className="w-full h-full object-contain"
+              />
+              {/* Perforated border effect */}
+              <div className="absolute inset-0 border border-background-paper border-dotted opacity-40" />
+            </div>
+          </div>
+        )}
+
         {postmark && (
           <div className="absolute opacity-20 postmark text-muted group-hover:rotate-12 transition-transform duration-700 pointer-events-none">
             {postmark}
           </div>
         )}
 
-        <div className={`mt-8 flex flex-col gap-2 relative z-10 ${textAlign === "center" ? "items-center text-center" : textAlign === "right" ? "text-right" : ""}`}>
-          <h2 className="text-text-main text-2xl font-hand leading-tight tracking-tight">To: {to}</h2>
-          <p className="text-muted text-lg font-hand leading-normal">From: {from}</p>
+        <div className={`mt-4 flex flex-col gap-1 relative z-10 ${textAlign === "center" ? "items-center text-center" : textAlign === "right" ? "text-right" : ""}`}>
+          <h2 className="text-text-main text-xl md:text-2xl font-hand leading-tight tracking-tight truncate w-full pr-12">To: {to}</h2>
+          <p className="text-muted text-base md:text-lg font-hand leading-normal truncate w-full">From: {from}</p>
         </div>
 
         {/* Paper Grain Overlay - Dioptimasi dengan opacity lebih rendah */}

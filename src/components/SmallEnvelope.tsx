@@ -13,7 +13,7 @@ export const SmallEnvelope: React.FC<SmallEnvelopeProps> = ({ id, to, rotation =
   return (
     <Link href={`/read/${id}`} className="group block">
       <div 
-        className="relative w-full aspect-[4/3] bg-background-paper shadow-hard-sm border border-muted/10 p-4 transition-all duration-300 group-hover:shadow-hard group-hover:-translate-y-1"
+        className="relative w-full aspect-[1.8/1] bg-background-paper shadow-hard-sm border border-muted/20 p-4 transition-all duration-300 group-hover:shadow-hard group-hover:-translate-y-1 rounded-sm"
         style={{ transform: `rotate(${rotation}deg)` }}
       >
         {/* Postmark overlay */}

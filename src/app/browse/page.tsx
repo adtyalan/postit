@@ -6,19 +6,34 @@ import { EnvelopeCard } from "@/components/EnvelopeCard";
 import { motion, AnimatePresence } from "framer-motion";
 import { LoadingUI } from "@/components/LoadingUI";
 import { ErrorUI } from "@/components/ErrorUI";
+import { LetterSkeleton } from "@/components/TactileSkeleton";
 
 import useSWR from "swr";
 
-const fetcher = (url: string) => fetch(url).then((res) => res.json());
+const fetcher = async (url: string) => {
+  const res = await fetch(url);
+  if (!res.ok) {
+    const errorData = await res.json().catch(() => ({}));
+    throw new Error(errorData.error || "Failed to fetch data");
+  }
+  return res.json();
+};
 
 export default function BrowsePage() {
   const [searchQuery, setSearchQuery] = useState("");
   const { data: letters, error, isLoading } = useSWR("/api/letters", fetcher);
 
-  const filteredLetters = letters?.filter((letter: any) => 
-    (letter.recipient?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || 
-    (letter.sender?.toLowerCase() || "").includes(searchQuery.toLowerCase())
-  ) || [];
+  // Debugging: Cek tipe data letters jika bukan undefined
+  if (letters && !Array.isArray(letters)) {
+    console.error("API returned non-array data:", letters);
+  }
+
+  const filteredLetters = Array.isArray(letters) 
+    ? letters.filter((letter: any) => 
+        (letter.recipient?.toLowerCase() || "").includes(searchQuery.toLowerCase()) || 
+        (letter.sender?.toLowerCase() || "").includes(searchQuery.toLowerCase())
+      ) 
+    : [];
 
   // Helper for random rotation/styles for tactile feel
   const getRandomStyle = (id: string) => {
@@ -43,10 +58,6 @@ export default function BrowsePage() {
     <main className="relative min-h-screen w-full flex flex-col corkboard-bg font-body overflow-x-clip pt-28">
       <NavigationHeader />
       
-      <AnimatePresence>
-        {isLoading && <LoadingUI />}
-      </AnimatePresence>
-
       <div className="layout-container flex h-full grow flex-col">
         <div className="px-4 md:px-10 lg:px-40 flex flex-1 justify-center py-5">
           <div className="layout-content-container flex flex-col max-w-[1200px] flex-1">
@@ -100,7 +111,22 @@ export default function BrowsePage() {
             </div>
 
             {/* Envelopes Grid - Optimized without heavy layout prop */}
-            {filteredLetters.length > 0 ? (
+            {isLoading ? (
+              <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 p-4 space-y-6">
+                {[...Array(8)].map((_, i) => (
+                  <motion.div
+                    key={`skeleton-${i}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: i * 0.05 }}
+                  >
+                    <LetterSkeleton 
+                      className={i % 2 === 0 ? "rotate-1" : "-rotate-1"} 
+                    />
+                  </motion.div>
+                ))}
+              </div>
+            ) : filteredLetters.length > 0 ? (
               <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6 p-4 space-y-6 min-h-[400px] transform-gpu">
                 <AnimatePresence mode="popLayout">
                   {filteredLetters.map((letter: any) => {
@@ -119,6 +145,7 @@ export default function BrowsePage() {
                           from={letter.sender || "Unknown"}
                           rotation={style.rotation}
                           bgColor={style.bgColor}
+                          stampId={letter.stampId}
                         />
                       </motion.div>
                     );
