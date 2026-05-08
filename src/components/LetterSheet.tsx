@@ -6,6 +6,7 @@ interface LetterSheetProps {
   className?: string;
   animate?: any;
   initial?: any;
+  transition?: any;
   layout?: boolean;
   useStampBorder?: boolean;
 }
@@ -15,6 +16,7 @@ export const LetterSheet = ({
   className = "", 
   animate, 
   initial,
+  transition,
   layout = false,
   useStampBorder = false
 }: LetterSheetProps) => {
@@ -23,6 +25,7 @@ export const LetterSheet = ({
       layout={layout}
       initial={initial}
       animate={animate}
+      transition={transition}
       className={`relative w-full bg-background-paper paper-texture shadow-hard rounded-sm z-10 ${useStampBorder ? 'stamp-border-tl' : ''} ${className}`}
     >
       <div className={`relative p-6 md:p-12 lg:p-16`}>
